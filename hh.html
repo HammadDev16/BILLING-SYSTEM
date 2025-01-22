@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 2em;
+            background: white;
+            border-radius: 10px;
+
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="number"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Billing System</h2>
+
+        <input type="number" placeholder="p.price">
+        <input type="number" placeholder="interest %">
+
+        <h3><label for="installments">Installment Plan:</label></h3>
+        <input type="number" id="installments" min="1" placeholder="Enter Number Of Installments" required>
+
+        <button onclick="calculateTotal()">Calculate</button>
+
+        <div id="loading"><i class="fas fa-spinner fa-spin"></i> Calculating...</div>
+
+        <div class="result" id="result"></div>
+        <div class="error" id="error"></div>
+    </div>
+
+    <script>
+        
+        function calculateTotal() {
+            let productPrice = 20000;
+            let interestRate = 0.20;
+
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('error').innerHTML = '';
+            document.getElementById('loading').style.display = 'none';
+
+
+            let installments = document.getElementById('installments').value;
+
+
+            if (!installments || installments < 1) {
+                document.getElementById('error').innerHTML = 'Please enter a valid number of installments.';
+                return;
+            }
+
+
+            document.getElementById('loading').style.display = 'block';
+
+
+            setTimeout(() => {
+
+                let totalPrice = productPrice + (productPrice * interestRate);
+                let amountPerInstallment = totalPrice / installments;
+
+                document.getElementById('result').innerHTML = `Total Amount (with interest): ${totalPrice.toFixed(2)}<br>Amount per installment: ${amountPerInstallment.toFixed(2)}`;
+                document.getElementById('loading').style.display = 'none';
+            }, 1000);
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
+
+
